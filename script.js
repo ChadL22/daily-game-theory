@@ -33,70 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
-    
-    function battleOfSexesGame() {
-        document.getElementById("game-title").textContent = "Battle of the Sexes";
-        document.getElementById("game-instructions").textContent = "Choose Opera or Football.";
-        
-        const gameArea = document.getElementById("game-area");
-        gameArea.innerHTML = `
-            <button class="choice-button" id="opera">Opera</button>
-            <button class="choice-button" id="football">Football</button>
-        `;
-        
-        document.querySelectorAll(".choice-button").forEach(button => {
-            button.addEventListener("click", function () {
-                handleBattleOfSexesChoice(this.id);
-            });
-        });
-    }
-    
-    function chickenGame() {
-        document.getElementById("game-title").textContent = "Chicken (Hawk-Dove)";
-        document.getElementById("game-instructions").textContent = "Choose Hawk or Dove.";
-        
-        const gameArea = document.getElementById("game-area");
-        gameArea.innerHTML = `
-            <button class="choice-button" id="hawk">Hawk</button>
-            <button class="choice-button" id="dove">Dove</button>
-        `;
-        
-        document.querySelectorAll(".choice-button").forEach(button => {
-            button.addEventListener("click", function () {
-                handleChickenChoice(this.id);
-            });
-        });
-    }
-    
-    function ultimatumGame() {
-        document.getElementById("game-title").textContent = "Ultimatum Game";
-        document.getElementById("game-instructions").textContent = "Propose a split of $10.";
-        
-        const gameArea = document.getElementById("game-area");
-        gameArea.innerHTML = `
-            <input type="number" id="propose-amount" min="1" max="10" value="5">
-            <button class="choice-button" id="submit-proposal">Submit Proposal</button>
-        `;
-        
-        document.getElementById("submit-proposal").addEventListener("click", function () {
-            handleUltimatumChoice();
-        });
-    }
-    
-    function trustGame() {
-        document.getElementById("game-title").textContent = "Trust Game";
-        document.getElementById("game-instructions").textContent = "Send some amount of money. It will be multiplied by 3.";
-        
-        const gameArea = document.getElementById("game-area");
-        gameArea.innerHTML = `
-            <input type="number" id="send-amount" min="1" max="10" value="5">
-            <button class="choice-button" id="submit-send">Send Money</button>
-        `;
-        
-        document.getElementById("submit-send").addEventListener("click", function () {
-            handleTrustChoice();
-        });
-    }
 
     function handlePrisonersDilemmaChoice(choice) {
         const opponentChoice = Math.random() < 0.5 ? "cooperate" : "defect";
@@ -114,6 +50,23 @@ document.addEventListener("DOMContentLoaded", function () {
         updateScore(resultText);
     }
 
+    function battleOfSexesGame() {
+        document.getElementById("game-title").textContent = "Battle of the Sexes";
+        document.getElementById("game-instructions").textContent = "Choose Opera or Football.";
+        
+        const gameArea = document.getElementById("game-area");
+        gameArea.innerHTML = `
+            <button class="choice-button" id="opera">Opera</button>
+            <button class="choice-button" id="football">Football</button>
+        `;
+        
+        document.querySelectorAll(".choice-button").forEach(button => {
+            button.addEventListener("click", function () {
+                handleBattleOfSexesChoice(this.id);
+            });
+        });
+    }
+
     function handleBattleOfSexesChoice(choice) {
         const opponentChoice = Math.random() < 0.5 ? "opera" : "football";
         let resultText;
@@ -124,6 +77,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         document.getElementById("result").textContent = resultText;
         updateScore(resultText);
+    }
+
+    function chickenGame() {
+        document.getElementById("game-title").textContent = "Chicken (Hawk-Dove)";
+        document.getElementById("game-instructions").textContent = "Choose Hawk or Dove.";
+        
+        const gameArea = document.getElementById("game-area");
+        gameArea.innerHTML = `
+            <button class="choice-button" id="hawk">Hawk</button>
+            <button class="choice-button" id="dove">Dove</button>
+        `;
+        
+        document.querySelectorAll(".choice-button").forEach(button => {
+            button.addEventListener("click", function () {
+                handleChickenChoice(this.id);
+            });
+        });
     }
 
     function handleChickenChoice(choice) {
@@ -142,6 +112,21 @@ document.addEventListener("DOMContentLoaded", function () {
         updateScore(resultText);
     }
 
+    function ultimatumGame() {
+        document.getElementById("game-title").textContent = "Ultimatum Game";
+        document.getElementById("game-instructions").textContent = "Propose a split of $10.";
+        
+        const gameArea = document.getElementById("game-area");
+        gameArea.innerHTML = `
+            <input type="number" id="propose-amount" min="1" max="10" value="5">
+            <button class="choice-button" id="submit-proposal">Submit Proposal</button>
+        `;
+        
+        document.getElementById("submit-proposal").addEventListener("click", function () {
+            handleUltimatumChoice();
+        });
+    }
+
     function handleUltimatumChoice() {
         const proposedAmount = document.getElementById("propose-amount").value;
         const accept = Math.random() < 0.5;
@@ -155,6 +140,32 @@ document.addEventListener("DOMContentLoaded", function () {
         updateScore(resultText);
     }
 
+    function trustGame() {
+        document.getElementById("game-title").textContent = "Trust Game";
+        document.getElementById("game-instructions").textContent = "Send some amount of money. It will be multiplied by 3.";
+        
+        const gameArea = document.getElementById("game-area");
+        gameArea.innerHTML = `
+            <input type="number" id="send-amount" min="1" max="10" value="5">
+            <button class="choice-button" id="submit-send">Send Money</button>
+        `;
+        
+        document.getElementById("submit-send").addEventListener("click", function () {
+            handleTrustChoice();
+        });
+    }
+
     function handleTrustChoice() {
         const sentAmount = document.getElementById("send-amount").value;
-        const returnedAmount = Math.random() < 0.5 ? sentAmount *
+        const returnedAmount = Math.random() < 0.5 ? sentAmount * 2 : sentAmount * 0.5;
+        let resultText = `You sent ${sentAmount}. You received back ${returnedAmount} points.`;
+        document.getElementById("result").textContent = resultText;
+        updateScore(resultText);
+    }
+
+    function updateScore(resultText) {
+        const currentScore = parseInt(document.getElementById("score").textContent);
+        const points = parseInt(resultText.match(/[+-]?\d+/)[0]);
+        document.getElementById("score").textContent = currentScore + points;
+    }
+});
