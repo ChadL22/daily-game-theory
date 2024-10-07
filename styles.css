@@ -18,11 +18,11 @@ h1 {
     color: #333;
 }
 
-.game-options {
+#game-area {
     margin: 20px 0;
 }
 
-.color-button {
+.choice-button {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -32,20 +32,17 @@ h1 {
     cursor: pointer;
 }
 
-.color-button#red {
+.choice-button#defect, .choice-button#football {
     background-color: #f44336;
-}
-
-.color-button#blue {
-    background-color: #2196F3;
-}
-
-.color-button#green {
-    background-color: #4CAF50;
 }
 
 #result {
     margin-top: 20px;
     font-size: 18px;
+    font-weight: bold;
+}
+
+#score {
+    font-size: 20px;
     font-weight: bold;
 }
