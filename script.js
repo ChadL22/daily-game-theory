@@ -3,20 +3,28 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Randomly select a game of the day
     const todaysGame = games[Math.floor(Math.random() * games.length)];
+    console.log("Today's Game:", todaysGame);  // For debugging
 
     // Call the appropriate game logic based on today's selection
-    if (todaysGame === "prisonersDilemma") {
-        prisonersDilemmaGame();
-    } else if (todaysGame === "battleOfSexes") {
-        battleOfSexesGame();
-    } else if (todaysGame === "chicken") {
-        chickenGame();
-    } else if (todaysGame === "ultimatum") {
-        ultimatumGame();
-    } else if (todaysGame === "trust") {
-        trustGame();
+    try {
+        if (todaysGame === "prisonersDilemma") {
+            prisonersDilemmaGame();
+        } else if (todaysGame === "battleOfSexes") {
+            battleOfSexesGame();
+        } else if (todaysGame === "chicken") {
+            chickenGame();
+        } else if (todaysGame === "ultimatum") {
+            ultimatumGame();
+        } else if (todaysGame === "trust") {
+            trustGame();
+        } else {
+            throw new Error("Game not found");
+        }
+    } catch (error) {
+        console.error("Error loading the game:", error);
+        document.getElementById("game-instructions").textContent = "There was an error loading the game. Please try again.";
     }
-    
+
     function prisonersDilemmaGame() {
         document.getElementById("game-title").textContent = "Prisoner's Dilemma";
         document.getElementById("game-instructions").textContent = "Choose to cooperate or defect.";
